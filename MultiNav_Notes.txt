@@ -1,0 +1,29 @@
+Enter your starting point:
+Hotel
+
+Enter where you'd like to go:
+Apt 1
+Apt 2
+Apt 3
+...
+Apt n
+
+Create adj matrix from distances:
+
+      Hotel 1 2 3 ... n
+Hotel  a    b c d ... z
+1      a    b c d ... z
+2      a    b c d ... z
+3      a    b c d ... z
+...    a    b c d ... z
+n      a    b c d ... z
+
+API KEY = AIzaSyDTYWXGYzKpp1ytWUIL1ogc7SZWYtHWFr4
+
+{"destination_addresses":["2775 Shelter Cove NW, Duluth, GA 30096, USA"],"origin_addresses":["2352 Tallapoosa Dr, Duluth, GA 30097, USA"],
+"rows":[{"elements":[{"distance":{"text":"8.8 km","value":8783},"duration":{"text":"13 mins","value":800},"status":"OK"}]}],"status":"OK"}
+
+2352 Tallapoosa Dr Duluth GA 30097
+2775 Shelter Cove NW Duluth GA 30096
+35674 Fremont Blvd Fremont CA 94536
+296 Barber Ct Milpitas CA 95035
