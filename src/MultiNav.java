@@ -22,36 +22,36 @@ public class MultiNav {
         try {
             ArrayList<String> destinations = new ArrayList<>();
             // Hardcoded Values
-            String zainAddr = "2352 Tallapoosa Drive Duluth GA 30097";
-            String tazzyAddr = "2775 Shelter Cove Duluth GA 30096";
-            String starbucksAddr = "35674 Fremont Blvd Fremont CA 94536";
-            String restaurantAddr = "296 Barber Ct Milpitas CA 95035";
-            zainAddr = zainAddr.replaceAll(" ", "+");
-            tazzyAddr = tazzyAddr.replaceAll(" ", "+");
-            starbucksAddr = starbucksAddr.replaceAll(" ", "+");
-            restaurantAddr = restaurantAddr.replaceAll(" ", "+");
-            destinations.add(zainAddr);
-            destinations.add(tazzyAddr);
-            destinations.add(starbucksAddr);
-            destinations.add(restaurantAddr);
+//            String zainAddr = "2352 Tallapoosa Drive Duluth GA 30097";
+//            String otherAddr = "2775 Shelter Cove Duluth GA 30096";
+//            String starbucksAddr = "35674 Fremont Blvd Fremont CA 94536";
+//            String restaurantAddr = "296 Barber Ct Milpitas CA 95035";
+//            zainAddr = zainAddr.replaceAll(" ", "+");
+//            otherAddr = otherAddr.replaceAll(" ", "+");
+//            starbucksAddr = starbucksAddr.replaceAll(" ", "+");
+//            restaurantAddr = restaurantAddr.replaceAll(" ", "+");
+//            destinations.add(zainAddr);
+//            destinations.add(otherAddr);
+//            destinations.add(starbucksAddr);
+//            destinations.add(restaurantAddr);
             // User Input
-//            Scanner scanner = new Scanner(System.in);
-//            System.out.println("Enter a starting point.");
-//            String start = scanner.nextLine();
-//            start = start.replaceAll(" ", "+");
-//            boolean flag = false;
-//            int index = 0;
-//            while (!flag) {
-//                System.out.println("Enter where you want to go: (-1 if done)");
-//                String curr = scanner.nextLine();
-//                if (curr.equals("-1")) {
-//                    flag = true;
-//                } else {
-//                    curr = curr.replaceAll(" ", "+");
-//                    destinations.add(curr);
-//                }
-//            }
-//            destinations.add(0, start);
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Enter a starting point.");
+            String start = scanner.nextLine();
+            start = start.replaceAll(" ", "+");
+            boolean flag = false;
+            int index = 0;
+            while (!flag) {
+                System.out.println("Enter where you want to go: (-1 if done)");
+                String curr = scanner.nextLine();
+                if (curr.equals("-1")) {
+                    flag = true;
+                } else {
+                    curr = curr.replaceAll(" ", "+");
+                    destinations.add(curr);
+                }
+            }
+            destinations.add(0, start);
             double[][] distanceMatrix = new double[destinations.size() + 1][destinations.size() + 1];
             for (int i = 1; i <= destinations.size(); i++) {
                 for (int j = 1; j <= destinations.size(); j++) {
