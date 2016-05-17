@@ -12,17 +12,31 @@ import java.util.Scanner;
 import java.util.Stack;
 
 /**
- * Created by zain on 5/17/16.
+ * @author Zain on 5/17/16.
  */
 public class MultiNav {
     private static final String API_KEY = "AIzaSyDTYWXGYzKpp1ytWUIL1ogc7SZWYtHWFr4";
     public static void main(String[] args) {
         try {
+            ArrayList<String> destinations = new ArrayList<>();
+            // Hardcoded Values
+            String zainAddr = "2352 Tallapoosa Drive Duluth GA 30097";
+            String tazzyAddr = "2775 Shelter Cove Duluth GA 30096";
+            String starbucksAddr = "35674 Fremont Blvd Fremont CA 94536";
+            String restaurantAddr = "296 Barber Ct Milpitas CA 95035";
+            zainAddr = zainAddr.replaceAll(" ", "+");
+            tazzyAddr = tazzyAddr.replaceAll(" ", "+");
+            starbucksAddr = starbucksAddr.replaceAll(" ", "+");
+            restaurantAddr = restaurantAddr.replaceAll(" ", "+");
+            destinations.add(zainAddr);
+            destinations.add(tazzyAddr);
+            destinations.add(starbucksAddr);
+            destinations.add(restaurantAddr);
+            // User Input
 //            Scanner scanner = new Scanner(System.in);
 //            System.out.println("Enter a starting point.");
 //            String start = scanner.nextLine();
 //            start = start.replaceAll(" ", "+");
-            ArrayList<String> destinations = new ArrayList<>();
 //            boolean flag = false;
 //            int index = 0;
 //            while (!flag) {
@@ -36,18 +50,6 @@ public class MultiNav {
 //                }
 //            }
 //            destinations.add(0, start);
-            String zainAddr = "2352 Tallapoosa Drive Duluth GA 30097";
-            String tazzyAddr = "2775 Shelter Cove Duluth GA 30096";
-            String starbucksAddr = "35674 Fremont Blvd Fremont CA 94536";
-            String dardaAddr = "296 Barber Ct Milpitas CA 95035";
-            zainAddr = zainAddr.replaceAll(" ", "+");
-            tazzyAddr = tazzyAddr.replaceAll(" ", "+");
-            starbucksAddr = starbucksAddr.replaceAll(" ", "+");
-            dardaAddr = dardaAddr.replaceAll(" ", "+");
-            destinations.add(zainAddr);
-            destinations.add(tazzyAddr);
-            destinations.add(starbucksAddr);
-            destinations.add(dardaAddr);
             double[][] distanceMatrix = new double[destinations.size() + 1][destinations.size() + 1];
             for (int i = 1; i <= destinations.size(); i++) {
                 for (int j = 1; j <= destinations.size(); j++) {
@@ -74,15 +76,23 @@ public class MultiNav {
                 }
                 System.out.println();
             }
-            MultiNav.tsp(distanceMatrix);
+            MultiNav.tsp(distanceMatrix, destinations);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void tsp(double adjacencyMatrix[][])
+    /**
+     * tsp approximation using the greedy nearest neighbors method
+     * src: http://www.sanfoundry.com/java-program-implement-traveling-salesman-problem-using-nearest-neighbour-algorithm/
+     * Outputs the order the TSP-Approx algorithm suggests
+     * @param adjacencyMatrix that represents the edges in the graph
+     * @param destinations holds the list of addresses
+     */
+    public static void tsp(double adjacencyMatrix[][], ArrayList<String> destinations)
     {
         int numberOfNodes = adjacencyMatrix[1].length - 1;
+        ArrayList<Integer> locationIndices = new ArrayList<>();
         Stack<Integer> stack = new Stack<>();
         int[] visited = new int[numberOfNodes + 1];
         visited[1] = 1;
@@ -91,6 +101,7 @@ public class MultiNav {
         double min = Integer.MAX_VALUE;
         boolean minFlag = false;
         System.out.print(1 + "\t");
+        locationIndices.add(0);
 
         while (!stack.isEmpty())
         {
@@ -116,9 +127,15 @@ public class MultiNav {
                 stack.push(dst);
                 System.out.print(dst + "\t");
                 minFlag = false;
+                locationIndices.add(dst - 1);
                 continue;
             }
             stack.pop();
+        }
+        System.out.println("\n\nOrder of addresses to visit:");
+        int ind = 1;
+        for (Integer x : locationIndices) {
+            System.out.println(ind++ + ") " + destinations.get(x).replaceAll("\\+", " "));
         }
     }
 }
