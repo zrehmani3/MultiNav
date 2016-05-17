@@ -6,8 +6,10 @@ import com.google.gson.JsonParser;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.InterfaceAddress;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -72,14 +74,75 @@ public class MultiNav {
             }
             for (int i = 1; i <= destinations.size(); i++) {
                 for (int j = 1; j <= destinations.size(); j++) {
-                    System.out.print(distanceMatrix[i][j] / 60 + " ");
+                    System.out.print(distanceMatrix[i][j] + " ");
                 }
                 System.out.println();
             }
             MultiNav.tsp(distanceMatrix, destinations);
+            MultiNav.permutationComputation(distanceMatrix, destinations);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private static void permutationComputation(double distanceMatrix[][], ArrayList<String> destinations) {
+        List<List<Integer>> possiblePaths = new ArrayList<>();
+        List<Integer> nums = new ArrayList<>();
+        for (int i = 1; i <= destinations.size(); i++) {
+            nums.add(i);
+        }
+        permute(nums, 0, possiblePaths);
+        System.out.println(possiblePaths);
+        List<Integer> minList = new ArrayList<>();
+        double minDist = Double.MAX_VALUE;
+        for (int i = 0; i < possiblePaths.size(); i++) {
+            List<Integer> currList = possiblePaths.get(i);
+            double currDist = 0.0;
+            for (int j = 0; j < currList.size() - 1; j++) {
+                int iIndex = currList.get(j);
+                int jIndex = currList.get(j + 1);
+                System.out.println(iIndex + " " + jIndex + " " + distanceMatrix[iIndex][jIndex]);
+                currDist += distanceMatrix[iIndex][jIndex];
+            }
+            System.out.println(currDist);
+            System.out.println(currList);
+            if (currDist < minDist) {
+                minDist = currDist;
+                minList = currList;
+            }
+        }
+        System.out.println(minList);
+        System.out.println("\n\nOrder of addresses to visit:");
+        int ind = 1;
+        for (Integer x : minList) {
+            System.out.println(ind++ + ") " + destinations.get(x - 1).replaceAll("\\+", " "));
+        }
+    }
+
+    private static List<List<Integer>> permute(List<Integer> nums, int start, List<List<Integer>> possiblePaths) {
+        if (start == nums.size()) {
+            List<Integer> curr = new ArrayList<>();
+            for (Integer i : nums) {
+                curr.add(i);
+            }
+            if (curr.get(0) == 1) {
+                possiblePaths.add(curr);
+            }
+            return possiblePaths;
+        }
+        for (int i = start; i < nums.size(); i++) {
+            nums = swap(nums, start, i);
+            possiblePaths = permute(nums, start + 1, possiblePaths);
+            nums = swap(nums, start, i);
+        }
+        return possiblePaths;
+    }
+
+    private static List<Integer> swap(List<Integer> nums, int start, int i) {
+        int temp = nums.get(start);
+        nums.set(start, nums.get(i));
+        nums.set(i, temp);
+        return nums;
     }
 
     /**
