@@ -21,19 +21,6 @@ public class MultiNav {
     public static void main(String[] args) {
         try {
             ArrayList<String> destinations = new ArrayList<>();
-            // Hardcoded Values
-//            String zainAddr = "2352 Tallapoosa Drive Duluth GA 30097";
-//            String otherAddr = "2775 Shelter Cove Duluth GA 30096";
-//            String starbucksAddr = "35674 Fremont Blvd Fremont CA 94536";
-//            String restaurantAddr = "296 Barber Ct Milpitas CA 95035";
-//            zainAddr = zainAddr.replaceAll(" ", "+");
-//            otherAddr = otherAddr.replaceAll(" ", "+");
-//            starbucksAddr = starbucksAddr.replaceAll(" ", "+");
-//            restaurantAddr = restaurantAddr.replaceAll(" ", "+");
-//            destinations.add(zainAddr);
-//            destinations.add(otherAddr);
-//            destinations.add(starbucksAddr);
-//            destinations.add(restaurantAddr);
             // User Input
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter a starting point.");
